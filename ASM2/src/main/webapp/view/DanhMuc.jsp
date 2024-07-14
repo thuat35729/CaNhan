@@ -22,10 +22,12 @@
         Ma Danh Muc
     </p>
     <input type="text" name="maDM" class="from-control">
+    <p>${error}</p>
     <p>
         Ten Danh Muc
     </p>
     <input type="text" name="tenDM" class="from-control">
+    <p>${error}</p>
     <p>
         Trang Thai
     </p>

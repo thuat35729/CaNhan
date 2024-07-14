@@ -46,10 +46,21 @@ public class HoaDonServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uri = request.getRequestURI();
         if (uri.equals("/hoadon/add")) {
-            Integer khachhang = Integer.parseInt(request.getParameter("khachHang"));
+            Integer khachhangStr = Integer.parseInt(request.getParameter("khachHang"));
             String diachi = request.getParameter("diachi");
             String sdt = request.getParameter("sdt");
             String trangthai = request.getParameter("trangthai");
+            if (khachhangStr == null || khachhangStr == 0 ||
+                    diachi == null || diachi.isEmpty() ||
+                    sdt == null || sdt.isEmpty() ||
+                    trangthai == null || trangthai.isEmpty()) {
+
+                // Thêm thông báo lỗi vào request
+                request.setAttribute("error", "Vui lòng điền đầy đủ thông tin.");
+                request.getRequestDispatcher("/path/to/error/page").forward(request, response);
+                return;
+            }
+            Integer khachhang = Integer.parseInt(String.valueOf(khachhangStr));
             HoaDon hd = new HoaDon();
             KhachHang khachHang1 = new KhachHang();
             khachHang1.setId(khachhang);

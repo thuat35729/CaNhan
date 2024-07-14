@@ -28,8 +28,6 @@ public class KhachHangServlet extends HttpServlet {
             response.sendRedirect("/khachhang/trangchu");
         } else if (uri.equals("/khachhang/detal")) {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            //ArrayList<DanhMuc> listdm = danhMucRep.getList();
-
             request.setAttribute("detal", khachHangRep.detailkh(id));
             request.getRequestDispatcher("/detail/DetailKhachHang.jsp").forward(request, response);
         }

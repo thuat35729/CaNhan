@@ -24,9 +24,7 @@ public class DanhMucServlet extends HttpServlet {
             request.setAttribute("listdm", listdm);
             request.getRequestDispatcher("/view/DanhMuc.jsp").forward(request, response);
         } else if (uri.equals("/danh-muc/delete")) {
-            //xoa
             Integer id = Integer.parseInt(request.getParameter("id"));
-
             DanhMuc danhMuc = danhMucRepository.getDetail(id);
             danhMucRepository.delete(danhMuc);
             response.sendRedirect("/danh-Muc/hien-thi");
@@ -66,17 +64,22 @@ public class DanhMucServlet extends HttpServlet {
         response.sendRedirect("/danh-Muc/hien-thi");
     }
 
-    private void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String ma = request.getParameter("maDM");
         String ten = request.getParameter("tenDM");
         String trangthai = request.getParameter("trangthai");
-        DanhMuc danhMuc = new DanhMuc();
+        if (ma == null || ma.isEmpty() ||
+                ten == null || ten.isEmpty() ||
+                trangthai == null || trangthai.isEmpty()) {
+            request.setAttribute("error", "Vui lòng điền đầy đủ thông tin.");
+            request.getRequestDispatcher("/view/DanhMuc.jsp").forward(request, response);
+            return;
+        }        DanhMuc danhMuc = new DanhMuc();
         danhMuc.setMaDanhMuc(ma);
         danhMuc.setTenDanhMuc(ten);
         danhMuc.setTrangThai(trangthai);
         danhMuc.setNgayTao(new Date());
         danhMuc.setNgaySua(new Date());
-        //goi sang repo de luu
         danhMucRepository.add(danhMuc);
         response.sendRedirect("/danh-Muc/hien-thi");
     }

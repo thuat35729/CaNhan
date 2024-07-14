@@ -49,11 +49,12 @@
         <label class="form-label">gia ban </label>
         <input type="text" class="form-control" name="giaban">
     </div>
+    <p>${error}</p>
     <div class="mb-3">
         <label class="form-label">so luong ton </label>
         <input type="text" class="form-control" name="soluongton">
     </div>
-
+    <p>${error}</p>
     <div class="row">
         <p class="col-4">Trang thai
         </p>

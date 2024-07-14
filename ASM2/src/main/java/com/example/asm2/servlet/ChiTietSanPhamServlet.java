@@ -31,7 +31,7 @@ public class ChiTietSanPhamServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uri = request.getRequestURI();
-        if (uri.equals("/chitiet-sanpham/hien-thi")) {
+        if (uri.equals("/ctsp/hien-thi")) {
             listctsp = chiTietSanPhamRepository.getList();
             listmau = mauSacRepository.getList();
             listsize = sizeRepository.getlist();
@@ -73,7 +73,17 @@ public class ChiTietSanPhamServlet extends HttpServlet {
             Double giaban = Double.parseDouble(request.getParameter("giaban"));
             Integer soluongton = Integer.parseInt(request.getParameter("soluongton"));
             String trangthai = request.getParameter("trangthai");
+            if (sanpham == null || sanpham.isEmpty() ||
+                    mausac == null || mausac.isEmpty() ||
+                    sizesp == null || sizesp.isEmpty() ||
+                    giaban == null || giaban == 0 ||
+                    soluongton == null || soluongton == 0 ||
+                    trangthai == null || trangthai.isEmpty()) {
 
+                request.setAttribute("error", "Vui lòng điền đầy đủ thông tin.");
+                request.getRequestDispatcher("/view/SanPhamChiTiet.jsp").forward(request, response);
+                return;
+            }
             ChiTietSanPham chiTietSanPham = new ChiTietSanPham();
 
             SanPham sanPham1 = new SanPham();
@@ -95,7 +105,7 @@ public class ChiTietSanPhamServlet extends HttpServlet {
             chiTietSanPham.setNgaySua(new Date());
 
             chiTietSanPhamRepository.add(chiTietSanPham);
-            response.sendRedirect("/chitiet-sanpham/hien-thi");
+            response.sendRedirect("/ctsp/hien-thi");
         } else if (uri.equals("/ctsp/update")) {
             Integer id = Integer.parseInt("id");
             String sanpham = request.getParameter("sanpham");
@@ -125,7 +135,7 @@ public class ChiTietSanPhamServlet extends HttpServlet {
             chiTietSanPham.setNgaySua(new Date());
 
             chiTietSanPhamRepository.add(chiTietSanPham);
-            response.sendRedirect("/chitiet-sanpham/hien-thi");
+            response.sendRedirect("/ctsp/hien-thi");
         }
     }
 }

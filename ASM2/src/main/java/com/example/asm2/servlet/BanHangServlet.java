@@ -89,7 +89,7 @@ public class BanHangServlet extends HttpServlet {
             hoaDonChiTiet.setIdHoaDon(hoaDon);
             hoaDonChiTiet.setIdChiTietSanPham(chiTietSanPham);
             hoaDonChiTiet.setGiaBan(chiTietSanPham.getGiaBan());
-            HoaDonChiTiet hoaDonChiTietTonTai = hoaDonChiTietRepository.findBySanPhamId(idctsp);//(BanHangServlet.java:88)
+            HoaDonChiTiet hoaDonChiTietTonTai = hoaDonChiTietRepository.findBySanPhamId(idctsp);
             boolean productExistsInCurrentOrder = false;
             for (HoaDonChiTiet hdct : listhdct) {
                 if (hdct.getIdHoaDon().getId().equals(idHoaDon) && hdct.getIdChiTietSanPham().getId().equals(idctsp)) {
